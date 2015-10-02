@@ -6,10 +6,12 @@ function onUpdate_user(_this){
     var name = $(_this).parent().parent().find("[name='name']").val();
     var password = $(_this).parent().parent().find("[name='password']").val();
     var lv = $(_this).parent().parent().find("[name='lv']").val();
-    $.post("/admin_user",{ope : 'UPDATE' , username : name , password : password , lv : lv},function(res){
-        onAlert(res.rtype,res.rdata);
-        window.setTimeout("window.location='/admin_user'",800);
-    });
+    if(checkInput(name) && checkInput(password) && checkInput(lv,/[^0-7]+/,"Error : lv only can be in [0-7]")) {
+        $.post("/admin_user", {ope: 'UPDATE', username: name, password: password, lv: lv}, function (res) {
+            onAlert(res.rtype, res.rdata);
+            window.setTimeout("window.location='/admin_user'", 800);
+        });
+    }
 }
 function onDelete_user(_this){
     var name = $(_this).parent().parent().find("[name='name']").val();
@@ -22,9 +24,7 @@ function onInsert_user(_this){
     var name = $(_this).parent().parent().find("[name='name']").val();
     var password = $(_this).parent().parent().find("[name='password']").val();
     var lv = $(_this).parent().parent().find("[name='lv']").val();
-    if( name == '' || password == '' || lv == ''){
-        onAlert('danger','ERROR : You must fill all blanks');
-    }else{
+    if(checkInput(name) && checkInput(password) && checkInput(lv,/[^0-7]+/,"Error : lv only can be in [0-7]")) {
         $.post("/admin_user",{ope : 'INSERT' , username : name , password : password , lv : lv},function(res){
             onAlert(res.rtype,res.rdata);
             window.setTimeout("window.location='/admin_user'",800);

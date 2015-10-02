@@ -121,7 +121,7 @@ app.post('/login',function(req,res){
                 res.render('index', { title: 'Essss',dt : rows[0] });
             }else{
                  console.log('fail');
-                 res.send({"rtype":"danger","rdata":"FAILED : username and password error"});
+                 res.send({"rtype":"danger","rdata":"FAILED : Username or password is wrong"});
                  res.end();
             }
 
