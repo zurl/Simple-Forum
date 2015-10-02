@@ -14,7 +14,9 @@ var cookieParser = require('cookie-parser');
 var path = require('path');
 
 var ejs = require('ejs');
-
+var c_admin_base = 1;
+var c_admin_content = 2;
+var c_admin_user = 4;
 //settings
 
 app.set('views', path.join(__dirname, 'views'));
@@ -33,7 +35,7 @@ app.use(session({
     cookie: { secure: false , maxAge: 8000000 },
     resave: false,
     saveUninitialized: true
-}))
+}));
 app.get('/', function(req, res) {
     res.render('index', { title: 'Express',dt : "hello" });
 });
@@ -54,11 +56,6 @@ function getMysqlConnection(){
     });
     return con;
 }
-function isLogin(req){
-    if (req.session.username) return true;
-    else return false;
-
-}
 function isAdmin(req,lv){
     /*
         user : 0
@@ -68,19 +65,6 @@ function isAdmin(req,lv){
      */
     return  req.session.lv & lv;
 }
-var navlist_admin = [
-    {
-        "name" : "home",
-        "page" : "/admin"
-    },
-    {
-        "name" : "content",
-        "page" : "/admin"
-    },{
-        "name" : "home",
-        "page" : "/admin"
-    }
-];
 
 
 //routers
@@ -160,24 +144,30 @@ app.post('/register',function(req,res){
     con.end();
 });
 app.post('/admin_user',function(req,res){
-    //select
-    //new
-    //update
-    //delete
-    if(isAdmin(req,4)){
+    var condat,constr;
+    if(isAdmin(req,c_admin_user)){
+        var con = getMysqlConnection();
         var ope = req.body.ope;
-        if(ope == 1){
-            //new user
-            var condat = [req.body.username,req.body.password,req.body.lv];
-            var constr = 'INSERT INTO `user` (`name`,`password`,`lv`) VALUES (?,?,?);';
-            con.query(constr, condat, function(err, rows, fields) {
-                if (err) {
-                    res.end("ERR");
-                } else {
-                    res.json("OK");
-                }
-            });
+        if(ope == 'INSERT') {
+            condat = [req.body.username,req.body.password,req.body.lv];
+            constr = 'INSERT INTO `user` (`name`,`password`,`lv`) VALUES (?,?,?);';
+        }else if(ope == 'UPDATE') {
+            condat = [req.body.password,req.body.lv,req.body.username];
+            constr = 'UPDATE `user` SET `password` = ? , `lv` = ? WHERE `name` = ?;';
         }
+        else if(ope == 'DELETE') {
+            condat = [req.body.username];
+            constr = 'DELETE FROM `user` WHERE `name` = ?;';
+        }
+        con.query(constr, condat, function(err, result) {
+            if (err) {
+                res.send({"rtype":"danger","rdata":"ERROR : Database error"});
+                res.end();
+            } else {
+                res.send({"rtype":"success","rdata":"SUCCESS : Executed successfully"});
+                res.end();
+            }
+        });
     }else{
         res.end("ERR");
     }

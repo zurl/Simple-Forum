@@ -13,20 +13,30 @@
             </tr>
             </thead>
             <tbody>
-            <% _data = JSON.parse(data); %>
+                <% _data = JSON.parse(data); %>
                 <% for( x in _data) { %>
                     <tr>
                         <th><%=x %></th>
-                        <th><input name = 'name' id = <%=x%> value = '<%=_data[x].name %>'></th>
-                        <th><input type = 'password' name = 'password' id = <%=x%> value = '<%=_data[x].password %>'></th>
-                        <th><input name = 'lv' id = <%=x%> value = '<%=_data[x].lv %>'></th>
+                        <th><input name = 'name' value = '<%=_data[x].name %>' readonly ></th>
+                        <th><input type = 'password' name = 'password'  value = '<%=_data[x].password %>'></th>
+                        <th><input name = 'lv' value = '<%=_data[x].lv %>'></th>
                         <th>
-                            <button type="button" class="btn btn-primary" onclick = 'onUpdate_User();'>Update</button>
-                            <button type="button" class="btn btn-danger" onclick = 'onDelete_User();'>Delete</button>
+                            <button type="button" class="btn btn-primary" onclick = 'onUpdate_user(this);'>Update</button>
+                            <button type="button" class="btn btn-danger" onclick = 'onDelete_user(this);'>Delete</button>
                         </th>
                     </tr>
                 <% } %>
+                    <tr>
+                        <th>New</th>
+                        <th><input name = 'name' ></th>
+                        <th><input type = 'password' name = 'password'></th>
+                        <th><input name = 'lv' ></th>
+                        <th>
+                            <button type="button" class="btn btn-info" onclick = 'onInsert_user(this);'>Insert</button>
+                        </th>
+                    </tr>
             </tbody>
+            <div id = "alertdiv"></div>
         </table>
     </div>
 </div>
