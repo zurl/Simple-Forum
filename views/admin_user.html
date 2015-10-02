@@ -1,0 +1,34 @@
+<% include header-admin.html %>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">test website user manager</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>lv</th>
+                <th>operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% _data = JSON.parse(data); %>
+                <% for( x in _data) { %>
+                    <tr>
+                        <th><%=x %></th>
+                        <th><input name = 'name' id = <%=x%> value = '<%=_data[x].name %>'></th>
+                        <th><input type = 'password' name = 'password' id = <%=x%> value = '<%=_data[x].password %>'></th>
+                        <th><input name = 'lv' id = <%=x%> value = '<%=_data[x].lv %>'></th>
+                        <th>
+                            <button type="button" class="btn btn-primary" onclick = 'onUpdate_User();'>Update</button>
+                            <button type="button" class="btn btn-danger" onclick = 'onDelete_User();'>Delete</button>
+                        </th>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</body>
