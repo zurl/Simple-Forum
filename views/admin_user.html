@@ -16,8 +16,8 @@
                 <% _data = JSON.parse(data); %>
                 <% for( x in _data) { %>
                     <tr>
-                        <th><%=x %></th>
-                        <th><input name = 'name' value = '<%=_data[x].name %>' readonly ></th>
+                        <th><input name = 'id' value = '<%=_data[x].id %>' readonly ></th>
+                        <th><input name = 'name' value = '<%=_data[x].username %>' readonly ></th>
                         <th><input type = 'password' name = 'password'  value = '<%=_data[x].password %>'></th>
                         <th><input name = 'lv' value = '<%=_data[x].lv %>'></th>
                         <th>

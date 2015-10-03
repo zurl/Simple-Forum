@@ -26,7 +26,7 @@ function onInsert_user(_this){
     var lv = $(_this).parent().parent().find("[name='lv']").val();
     if(checkInput(name) && checkInput(password) && checkInput(lv,/[^0-7]+/,"Error : lv only can be in [0-7]")) {
         $.post("/admin_user",{ope : 'INSERT' , username : name , password : password , lv : lv},function(res){
-            onAlert(res.rtype,res.rdata);
+            onAlert(res.rtype,res.rdata.toString());
             window.setTimeout("window.location='/admin_user'",800);
         });
     }
