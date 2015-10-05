@@ -17,19 +17,19 @@
             <% _data = JSON.parse(data); %>
             <% for( x in _data) { %>
             <tr>
-                <th><%=_data[x].id%></th>
-                <th><%=_data[x].title%></th>
-                <th><%=_data[x].author%></th>
-                <th><%=_data[x].createtime%></th>
-                <th><%=_data[x].updatetime%></th>
+                <th><%-_data[x].id%></th>
+                <th><%-_data[x].title%></th>
+                <th><%-_data[x].author%></th>
+                <th><%-_data[x].createtime%></th>
+                <th><%-_data[x].updatetime%></th>
                 <th>
-                    <button type="button" class="btn btn-primary" onclick = 'onView_user(this);'>View</button>
-                    <button type="button" class="btn btn-danger" onclick = 'onDelete_article(this);'>Delete</button>
+                    <button type="button" class="btn btn-primary" id = '<%-_data[x].id%>' onclick = 'onView_article(this);'>View</button>
+                    <button type="button" class="btn btn-danger" id = '<%-_data[x].id%>' onclick = 'onDelete_article(this);'>Delete</button>
                 </th>
             </tr>
             <% } %>
             <tr>
-                <th><button type="button" class="btn btn-danger" onclick = 'onInsert_article();'>Delete</button></th>
+                <th><button type="button" class="btn btn-primary" onclick = 'toInsert_article();'>Insert</button></th>
             </tr>
             </tbody>
             <div id = "alertdiv"></div>

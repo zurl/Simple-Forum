@@ -90,10 +90,29 @@ app.get('/admin_user',function(req,res){
 app.get('/admin_article',function(req,res){
     if(isAdmin(req,1)){
         var con = getMysqlConnection();
-        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H-%i-%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`content`,`title`,`author`,`id` FROM `article`;";
+        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H-%i-%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`brief`,`content`,`title`,`author`,`id` FROM `article`;";
         con.query(constr, function(err, rows, fields) {
             res.render('admin_article', { title: 'ADMINARTICLE',data :JSON.stringify(rows)  });
         });
+    }else{
+        res.redirect("/error_lv.html");
+    }
+});
+app.get('/admin_article_view',function(req,res){
+    if(isAdmin(req,1)){
+        var con = getMysqlConnection();
+        var condat = [req.query.aid];
+        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H-%i-%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`content`,`title`,`author`,`id` WHERE `id` = ? FROM `article` ;";
+        con.query(constr, condat, function(err, rows, fields) {
+            res.render('admin_article_view', { title: 'ADMINARTICLEVIEW',data :JSON.stringify(rows)  });
+        });
+    }else{
+        res.redirect("/error_lv.html");
+    }
+});
+app.get('/admin_article_insert',function(req,res){
+    if(isAdmin(req,1)){
+        res.render('admin_article_insert', { title: 'ADMINARTICLEINSERT'  });
     }else{
         res.redirect("/error_lv.html");
     }
@@ -172,7 +191,40 @@ app.post('/admin_user',function(req,res){
     }else{
         res.end("ERR");
     }
-})
+});
+app.post('/admin_article',function(req,res){
+    var condat,constr;
+    if(isAdmin(req,c_admin_content)){
+        var con = getMysqlConnection();
+        var ope = req.body.ope;
+        if(ope == 'INSERT') {
+            condat = [req.body.title,req.body.brief,req.body.content,req.session.username];
+            constr = 'INSERT INTO `article` (`title`,`brief`,`content`,`author`,`createtime`,`updatetime`) VALUES (?,?,?,?,now(),now());';
+        }else if(ope == 'UPDATE') {
+            condat = [req.body.title,req.body.brief,req.body.content,req.body.aid];
+            constr = 'UPDATE `article` SET `title` = ? , `brief` = ? , `content` = ? ,`updatetime` = now() WHERE `id` = ?;';
+        }
+        else if(ope == 'DELETE') {
+            condat = [req.body.aid];
+            constr = 'DELETE FROM `article` WHERE `id` = ?;';
+        }
+        con.query(constr, condat, function(err, result) {
+            if (err){
+                if(err.code == 'ER_DUP_ENTRY'){
+                    res.send({"rtype":"danger","rdata":"ERROR : The username has been used."});
+                }else{
+                    res.send({"rtype":"danger","rdata":err.code});
+                }
+                res.end();
+            } else {
+                res.send({"rtype":"success","rdata":"SUCCESS : Executed successfully."});
+                res.end();
+            }
+        });
+    }else{
+        res.end("ERR");
+    }
+});
 //main
 app.use(function (req, res, next) {
     // interceptors

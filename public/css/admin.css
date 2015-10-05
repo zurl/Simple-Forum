@@ -103,3 +103,8 @@ body {
     display: inline-block;
     border-radius: 50%;
 }
+
+
+.ipt-lv{
+    width : 50px;
+}

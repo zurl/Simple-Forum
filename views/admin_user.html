@@ -16,23 +16,23 @@
                 <% _data = JSON.parse(data); %>
                 <% for( x in _data) { %>
                     <tr>
-                        <th><input name = 'id' value = '<%=_data[x].id %>' readonly ></th>
-                        <th><input name = 'name' value = '<%=_data[x].username %>' readonly ></th>
-                        <th><input type = 'password' name = 'password'  value = '<%=_data[x].password %>'></th>
-                        <th><input name = 'lv' value = '<%=_data[x].lv %>'></th>
-                        <th>
-                            <button type="button" class="btn btn-primary" onclick = 'onUpdate_user(this);'>Update</button>
+                        <th><input name = 'id' value = '<%-_data[x].id %>' readonly ></th>
+                        <th><input name = 'username' value = '<%-_data[x].username %>' readonly ></th>
+                        <th><input type = 'password' name = 'password'  value = '<%-_data[x].password %>'></th>
+                        <th><input name = 'lv' class="ipt-lv" value = '<%-_data[x].lv %>'></th>
+                        <th class="ope">
+                            <button type="button" class="btn btn-primary" onclick = 'toUpdate_user(this);'>Update</button>
                             <button type="button" class="btn btn-danger" onclick = 'onDelete_user(this);'>Delete</button>
                         </th>
                     </tr>
                 <% } %>
                     <tr>
                         <th>New</th>
-                        <th><input name = 'name' ></th>
+                        <th><input name = 'username' ></th>
                         <th><input type = 'password' name = 'password'></th>
-                        <th><input name = 'lv' ></th>
-                        <th>
-                            <button type="button" class="btn btn-info" onclick = 'onInsert_user(this);'>Insert</button>
+                        <th><input name = 'lv' class="ipt-lv"></th>
+                        <th class="ope">
+                            <button type="button" class="btn btn-info" onclick = 'Insert_user();'>Insert</button>
                         </th>
                     </tr>
             </tbody>

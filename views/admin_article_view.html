@@ -1,19 +1,24 @@
 <% include header-admin.html %>
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">test website article manager view</h1>
-    <div class = "container-fluid">
-        # : <%=data.id%>
-        <br />
-        Author : <%=data.author%>
-        <br />
-        Createtime : <%=data.createtime%>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">test website article manager view</h1>
+            <div class = "container-fluid">
+                # : <%-data.id%>
+                <br />
+                Author : <%-data.author%>
+                <br />
+                Createtime : <%-data.createtime%>
+            </div>
+            <div class = "container-fluid">
+                Title : <input name = 'title' value = '<%-_data.title %>' >
+                <br />
+                Brief introduction : <textarea name = 'bried' value = '<%-_data.brief %>' >
+                <br />
+                Content : <textarea name = 'content' value = '<%-_data.content %>' >
+                <br />
+            </div>
+            <th>
+                <button type="button" class="btn btn-info" onclick = 'onUpdate_user();'>Update</button>
+            </th>
+        </div>
     </div>
-    <div class = "container-fluid">
-        Title : <input name = 'title' value = '<%=_data.title %>' >
-        <br />
-        Content : <textarea name = 'content' value = '<%=_data.content %>' >
-        <br />
-    </div>
-</div>
-</div>
 </body>
