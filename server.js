@@ -4,6 +4,7 @@
 
 //import
 
+var fs = require('fs');
 var express = require('express');
 var app = express();
 var mysql  = require('mysql');
@@ -20,6 +21,7 @@ var c_admin_base = 1;
 var c_admin_insert_article = 2;
 var c_admin_manage_article = 4;
 var c_admin_super = 8;
+var dbpassword = "";
 //settings
 
 app.set('views', path.join(__dirname, 'views'));
@@ -59,7 +61,7 @@ function getMysqlConnection(){
     var con = mysql.createConnection({
         host     : 'localhost',
         user     : 'root',
-        password : 'furrydb'
+        password : dbpassword
     });
     con.connect();
     con.query("use webtest;", function(err,rows,fields) {
@@ -294,6 +296,10 @@ app.get('/center', function(req, res) {
 });
 
 var server = app.listen(80, function () {
+    fs.readFile('config.json',function(err,data) {
+        var _json = JSON.parse(data);
+        dbpassword = _json.password;
+    })
     var host = server.address().address;
     var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);
