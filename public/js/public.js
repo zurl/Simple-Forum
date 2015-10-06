@@ -33,17 +33,17 @@ function checkInput(str,_reg,_str){
 }
 //Using in login.html
 function onLogin(){
-    var name = $("input[name='username']").val();
-    var password =  $("input[name='password']").val();
+    var name = $('input[name="username"]').val();
+    var password =  $('input[name="password"]').val();
     if(checkInput(name) && checkInput(password)) {
         $.post("/login", {username: name, password: password}, function (res) {
             onAlert(res.rtype, res.rdata,"up");
-            window.setTimeout("window.location='/'",800);
+            window.setTimeout('window.location="/"',800);
         });
     }
 }
 function onRegister(s){
-    $.post("/register",{username : $("input[name='username']").val(),password : $("input[name='password']").val()},function(res){
+    $.post("/register",{username : $('input[name="username"]').val(),password : $('input[name="password"]').val()},function(res){
         onAlert(res.rtype,res.rdata);
     });
 }
