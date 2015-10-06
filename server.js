@@ -21,8 +21,8 @@ var c_admin_base = 1;
 var c_admin_insert_article = 2;
 var c_admin_manage_article = 4;
 var c_admin_super = 8;
-var dbpassword = "";
-//settings
+var dbjson = {};
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -58,11 +58,7 @@ app.use(function (req, res, next) {
 //define
 
 function getMysqlConnection(){
-    var con = mysql.createConnection({
-        host     : 'localhost',
-        user     : 'root',
-        password : dbpassword
-    });
+    var con = mysql.createConnection(dbjson);
     con.connect();
     con.query("use webtest;", function(err,rows,fields) {
         if (err){
@@ -298,8 +294,12 @@ app.get('/center', function(req, res) {
 var server = app.listen(80, function () {
     fs.readFile('config.json',function(err,data) {
         var _json = JSON.parse(data);
-        dbpassword = _json.password;
-    })
+        dbjson = {
+            host : _json.db_host,
+            user : _json.db_user,
+            password : _json.db_password
+        }
+    });
     var host = server.address().address;
     var port = server.address().port;
     console.log('Example app listening at http://%s:%s', host, port);
