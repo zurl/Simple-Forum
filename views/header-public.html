@@ -9,7 +9,7 @@
     <link href="/css/public.css" rel="stylesheet">
     <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="/js/public.js?v=1"></script>
+    <script src="/js/public.js?v=2"></script>
 </head>
 <body>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -27,14 +27,30 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="#">Home</a></li>
-                <li><a href="/info.html">Info</a></li>
                 <li><a href="/admin">Admin</a></li>
+                <li><a href="/article">Article</a></li>
+                <li><a href="/activity">Activity</a></li>
+                <li><a href="/pic">Picture</a></li>
+                <li><a href="/info.html">Info</a></li>
                 <!-- <li><a href="#contact">Contact</a></li>-->
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
-                <li class="active"><a href="../public">Default <span class="sr-only">(current)</span></a></li>
-                <li><a href="../navbar-static-top/">Static top</a></li>
-                <li><a href="../navbar-fixed-top/">Fixed top</a></li>
+                <% if(l == 0) { %>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input type="text" placeholder="Email" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-success">Sign in</button>
+                </form>
+                <li ><a href="/login">Login</a></li>
+                <% }else{ %>
+                <li ><a href="/logout"><%-username%></a></li>
+                <li ><a href="/logout">Logout</a></li>
+                <% } %>
             </ul>
         </div><!--/.nav-collapse -->
     </div>

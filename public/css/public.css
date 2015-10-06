@@ -5,3 +5,16 @@ body {
     padding: 40px 15px;
     text-align: center;
 }
+.d-login{
+    margin : 10px 10px 10px 10px;
+    text-align: center;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.j-h{
+    margin-top : 10px;
+}

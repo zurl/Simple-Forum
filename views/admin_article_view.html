@@ -1,24 +1,28 @@
 <% include header-admin.html %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <h1 class="page-header">test website article manager view</h1>
+            <%var __data = JSON.parse(data);%>
+            <div id = "alertdiv"></div>
             <div class = "container-fluid">
-                # : <%-data.id%>
+                # : <span name="id" aid="<%-__data[0].id%>"><%-__data[0].id%></span>
                 <br />
-                Author : <%-data.author%>
+                Author : <%-__data[0].author%>
                 <br />
-                Createtime : <%-data.createtime%>
+                Createtime : <%-__data[0].createtime%>
             </div>
             <div class = "container-fluid">
-                Title : <input name = 'title' value = '<%-_data.title %>' >
+                Title : <input name = 'title' value = '<%-__data[0].title %>' >
                 <br />
-                Brief introduction : <textarea name = 'bried' value = '<%-_data.brief %>' >
+                Brief introduction : <textarea name = 'brief' ><%-__data[0].brief %></textarea>
                 <br />
-                Content : <textarea name = 'content' value = '<%-_data.content %>' >
+                Content : <textarea name = 'content' ><%-__data[0].content %></textarea>
                 <br />
             </div>
             <th>
-                <button type="button" class="btn btn-info" onclick = 'onUpdate_user();'>Update</button>
+                <button type="button" class="btn btn-info" onclick = 'onUpdate_article();'>Update</button>
             </th>
         </div>
     </div>
 </body>
+
+</html>

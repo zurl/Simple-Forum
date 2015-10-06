@@ -21,7 +21,7 @@
                         <th><input type = 'password' name = 'password'  value = '<%-_data[x].password %>'></th>
                         <th><input name = 'lv' class="ipt-lv" value = '<%-_data[x].lv %>'></th>
                         <th class="ope">
-                            <button type="button" class="btn btn-primary" onclick = 'toUpdate_user(this);'>Update</button>
+                            <button type="button" class="btn btn-primary" onclick = 'onUpdate_user(this);'>Update</button>
                             <button type="button" class="btn btn-danger" onclick = 'onDelete_user(this);'>Delete</button>
                         </th>
                     </tr>
@@ -32,7 +32,7 @@
                         <th><input type = 'password' name = 'password'></th>
                         <th><input name = 'lv' class="ipt-lv"></th>
                         <th class="ope">
-                            <button type="button" class="btn btn-info" onclick = 'Insert_user();'>Insert</button>
+                            <button type="button" class="btn btn-info" onclick = 'onInsert_user();'>Insert</button>
                         </th>
                     </tr>
             </tbody>
@@ -42,3 +42,4 @@
 </div>
 </div>
 </body>
+</html>

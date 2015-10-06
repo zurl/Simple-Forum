@@ -18,13 +18,20 @@
             <% for( x in _data) { %>
             <tr>
                 <th><%-_data[x].id%></th>
-                <th><%-_data[x].title%></th>
+                <th><button type="button" class="btn btn-link" aid = '<%-_data[x].id%>' onclick = 'onView_article(this);'><%-_data[x].title%></button></th>
                 <th><%-_data[x].author%></th>
                 <th><%-_data[x].createtime%></th>
-                <th><%-_data[x].updatetime%></th>
+                <th><%-_data[x].updatetime%></th>sz
                 <th>
-                    <button type="button" class="btn btn-primary" id = '<%-_data[x].id%>' onclick = 'onView_article(this);'>View</button>
-                    <button type="button" class="btn btn-danger" id = '<%-_data[x].id%>' onclick = 'onDelete_article(this);'>Delete</button>
+
+                    <% if(_data[x].top == 0){ %>
+                    <button type="button" class="btn btn-success" aid = '<%-_data[x].id%>' onclick = 'onTop_article(this,1);'>Top</button>
+                    <% }else{ %>
+                    <button type="button" class="btn btn-danger" aid = '<%-_data[x].id%>' onclick = 'onTop_article(this,0);'>unTop</button>
+                    <% } %>
+                    <button type="button" class="btn btn-danger" aid = '<%-_data[x].id%>' onclick = 'onDelete_article(this);'>Delete</button>
+
+
                 </th>
             </tr>
             <% } %>
@@ -38,3 +45,5 @@
 </div>
 </div>
 </body>
+
+</html>

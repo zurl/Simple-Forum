@@ -1,29 +1,31 @@
 <% include header-public.html %>
     <div class="container">
-
-        <div class="starter-template">
-            <h1 >Test Web Index Page</h1>
-            <p>This website is created for learning purpose.</p>
-            <p>Here is a fundamental user system.</p>
-            <div class="col-sm-4">
-
-            </div>
-            <div class="col-sm-4">
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Login</h3>
-                    </div>
-                    <div class="panel-body">
-                        Username:    <input type="text" name="username" request >
-                        <br/>
-                        Password:    <input type="password" name="password" request>
-                        <button class="btn btn-default" onclick = "onRegister();" >Register</button>
-                        <button class="btn btn-default" onclick = "onLogin();" > Login </button>
-                    </div>
-                </div>
-                <div id = "alertdiv"></div>
+        <div class="jumbotron j-h">
+            <div class="container">
+                <h1>Test web site</h1>
+                <p>This website is created for learning purpose.</p>
+                <p>Please first <a class="btn btn-primary btn-lg" href="#" role="button">Login</a> or <a class="btn btn-info btn-lg" href="#" role="button">Register</a></p>
             </div>
         </div>
+        <div class = "container">
+            <div class="page-header">
+                <h2> Article </h2>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <% _data = JSON.parse(data){ %>
+                    <% for(x in _data){ %>
+                    <div class="col-md-4">
+                        <h2><%-_data[x].title%><small>By <%-_data[x].author%></small></h2>
+                        <p><%-_data[x].brief%></p>
+                        <p><a class="btn btn-default" aid = '<%-_data[x].id%>' href="" role="button">View details &raquo;</a></p>
+                    </div>
+                    <% } %>
+                </div>
+        </div>
+
+
+        <h2> Activity </h2>
     </div><!-- /.container -->
 
 </body>

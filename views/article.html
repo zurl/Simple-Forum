@@ -1,6 +1,5 @@
-<% include header-admin.html %>
+<% include header-public.html %>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">test website article manager</h1>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -10,23 +9,23 @@
                 <th>Author</th>
                 <th>Createtime</th>
                 <th>Updatetime</th>
-                <th>Operation</th>
             </tr>
             </thead>
             <tbody>
             <% _data = JSON.parse(data); %>
             <% for( x in _data) { %>
-
-            <% } %>
             <tr>
-                <th><button type="button" class="btn btn-danger" onclick = 'onInsert_article();'>Delete</button></th>
+                <th><%-_data[x].id%></th>
+                <th><%-_data[x].title%></th>
+                <th><%-_data[x].author%></th>
+                <th><%-_data[x].createtime%></th>
+                <th><%-_data[x].updatetime%></th>
             </tr>
+            <% } %>
             </tbody>
             <div id = "alertdiv"></div>
         </table>
     </div>
 </div>
-</div>
 </body>
-
 </html>

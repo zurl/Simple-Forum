@@ -33,6 +33,7 @@ function onLogin(){
     if(checkInput(name) && checkInput(password)) {
         $.post("/login", {username: name, password: password}, function (res) {
             onAlert(res.rtype, res.rdata);
+            window.setTimeout("window.location='/'",800);
         });
     }
 }
@@ -40,4 +41,8 @@ function onRegister(s){
     $.post("/register",{username : $("input[name='username']").val(),password : $("input[name='password']").val()},function(res){
         onAlert(res.rtype,res.rdata);
     });
+}
+//Using in Article
+function onView_article(){
+
 }

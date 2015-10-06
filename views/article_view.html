@@ -1,0 +1,22 @@
+<% include header-public.html %>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">test website article manager view</h1>
+    <%var __data = JSON.parse(data);%>
+    <div id = "alertdiv"></div>
+    <div class = "container-fluid">
+        # : <span name="id" aid="<%-__data[0].id%>"><%-__data[0].id%></span>
+        <br />
+        Author : <%-__data[0].author%>
+        <br />
+        Createtime : <%-__data[0].createtime%>
+        <br />
+        Title : <%-__data[0].title %>
+        <br />
+        Brief introduction :<%-__data[0].brief %>
+        <br />
+        Content : <%-__data[0].content %>
+        <br />
+    </div>
+</div>
+</body>
+</html>
