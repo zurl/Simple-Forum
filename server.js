@@ -18,12 +18,8 @@ var ejs = require('ejs');
 var c_user = 0;
 var c_admin_base = 1;
 var c_admin_insert_article = 2;
-var c_admin_insert_activity = 4;
-var c_admin_insert_pic = 8;
-var c_admin_manage_article = 16;
-var c_admin_manage_activity = 32;
-var c_admin_manage_pic = 64;
-var c_admin_super = 128;
+var c_admin_manage_article = 4;
+var c_admin_super = 8;
 //settings
 
 app.set('views', path.join(__dirname, 'views'));
@@ -44,9 +40,13 @@ app.use(session({
     saveUninitialized: true
 }));
 app.use(function (req, res, next) {
+    res.locals.a = 0;
     if(isLogin(req)){
         res.locals.l = 1;
-        res.locals.username = "123as";
+        res.locals.username = req.session.username;
+        if(isAdmin(req,c_admin_base)){
+            res.locals.a = 1;
+        }
     }else{
 
         res.locals.l = 0;
@@ -92,9 +92,9 @@ function isAdmin(req,lv){
 
 app.get('/admin',function(req,res){
     if(isAdmin(req,c_admin_base)){
-        res.render('admin', { title: 'ADMIN',dt : "hello" });
+        res.render('admin', { act:"admin", act2 : "a",title: 'ADMIN',dt : "hello" });
     }else{
-        res.redirect("/error_lv.html");
+        res.redirect("/error_lv");
     }
 });
 app.get('/admin_user',function(req,res){
@@ -102,65 +102,61 @@ app.get('/admin_user',function(req,res){
         var con = getMysqlConnection();
         var constr = "SELECT * FROM `user`;";
         con.query(constr, function(err, rows, fields) {
-            res.render('admin_user', { title: 'ADMINUSER',data : JSON.stringify(rows) });
+            res.render('admin_user', { act:"admin",act2 : "au",  title: 'ADMINUSER',data : JSON.stringify(rows) });
         });
     }else{
-        res.redirect("/error_lv.html");
+        res.redirect("/error_lv");
     }
 });
 app.get('/admin_article',function(req,res){
     if(isAdmin(req,c_admin_manage_article)){
         var con = getMysqlConnection();
-        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`top`,`brief`,`content`,`title`,`author`,`id` FROM `article`;";
+        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`type`,`top`,`brief`,`content`,`title`,`author`,`id` FROM `article`;";
         con.query(constr, function(err, rows, fields) {
-            res.render('admin_article', { title: 'ADMINARTICLE',data :JSON.stringify(rows)  });
+            res.render('admin_article', {  act:"admin", act2 : "aa",title: 'ADMINARTICLE',data :JSON.stringify(rows)  });
         });
     }else{
-        res.redirect("/error_lv.html");
-    }
-});
-app.get('/admin_pic',function(req,res){
-    if(isAdmin(req,c_admin_manage_pic)){
-        var con = getMysqlConnection();
-        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`top`,`brief`,`content`,`title`,`author`,`id` FROM `article`;";
-        con.query(constr, function(err, rows, fields) {
-            res.render('admin_article', { title: 'ADMINARTICLE',data :JSON.stringify(rows)  });
-        });
-    }else{
-        res.redirect("/error_lv.html");
+        res.redirect("/error_lv");
     }
 });
 app.get('/admin_article_view',function(req,res){
     if(isAdmin(req,c_admin_manage_article)){
         var con = getMysqlConnection();
         var condat = [req.query.aid];
-        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`brief`,`content`,`title`,`author`,`id` FROM `article` WHERE `id` = ? ;";
+        var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`type`,`brief`,`content`,`title`,`author`,`id` FROM `article` WHERE `id` = ? ;";
         con.query(constr, condat, function(err, rows, fields) {
-            res.render('admin_article_view', { title: 'ADMINARTICLEVIEW',data :JSON.stringify(rows)  });
+            res.render('admin_article_view', { act:"admin",act2 : "aav",title: 'ADMINARTICLEVIEW',data :JSON.stringify(rows)  });
         });
     }else{
-        res.redirect("/error_lv.html");
+        res.redirect("/error_lv");
     }
 });
 app.get('/admin_article_insert',function(req,res){
     if(isAdmin(req,c_admin_insert_article)){
-        res.render('admin_article_insert', { title: 'ADMINARTICLEINSERT'  });
+        var con = getMysqlConnection();
+        var constr = "SELECT * FROM `options` WHERE `name` = 'articletype' ;";
+
+        con.query(constr, function(err, rows, fields) {
+            console.log(rows);
+            res.render('admin_article_insert', { act:"admin",act2 : "aai", data : JSON.stringify(rows),title: 'ADMINARTICLEINSERT'  });});
+
     }else{
-        res.redirect("/error_lv.html");
+        res.redirect("/error_lv");
     }
 });
 app.get('/error_lv',function(req,res) {
-    res.render('error_lv', { title: 'ADMIN',dt : "hello" });
+    res.render('error_lv', {act:"home", title: 'ADMIN',dt : "hello" });
 });
 app.get('/login',function(req,res) {
     if(isLogin(req)){
         res.redirect('/');
     }else{
-        res.render('login', {title: 'login'});
+        res.render('login', {act:"home",title: 'login'});
     }
 });
 app.get('/logout',function(req,res) {
-    req.session.destory();
+    req.session.destroy();
+    res.redirect("/");
 });
 app.post('/login',function(req,res){
     var con = getMysqlConnection();
@@ -209,12 +205,12 @@ app.post('/admin_user',function(req,res){
             condat = [req.body.username,req.body.password,req.body.lv];
             constr = 'INSERT INTO `user` (`username`,`password`,`lv`) VALUES (?,?,?);';
         }else if(ope == 'UPDATE') {
-            condat = [req.body.password,req.body.lv,req.body.username];
-            constr = 'UPDATE `user` SET `password` = ? , `lv` = ? WHERE `username` = ?;';
+            condat = [req.body.password,req.body.lv,req.body.uid];
+            constr = 'UPDATE `user` SET `password` = ? , `lv` = ? WHERE `id` = ?;';
         }
         else if(ope == 'DELETE') {
-            condat = [req.body.username];
-            constr = 'DELETE FROM `user` WHERE `username` = ?;';
+            condat = [req.body.uid];
+            constr = 'DELETE FROM `user` WHERE `id` = ?;';
         }
         con.query(constr, condat, function(err, result) {
             if (err){
@@ -238,11 +234,11 @@ app.post('/admin_article',function(req,res){
     var con = getMysqlConnection();
     var ope = req.body.ope;
     if(ope == 'INSERT' && isAdmin(req,c_admin_insert_article)) {
-        condat = [req.body.title,req.body.brief,req.body.content,req.session.username];
-        constr = 'INSERT INTO `article` (`title`,`brief`,`content`,`author`,`createtime`,`updatetime`) VALUES (?,?,?,?,now(),now());';
+        condat = [req.body.title,req.body.atype,req.body.brief,req.body.content,req.session.username];
+        constr = 'INSERT INTO `article` (`title`,`type`,`brief`,`content`,`author`,`createtime`,`updatetime`) VALUES (?,?,?,?,?,now(),now());';
     }else if(ope == 'UPDATE' && isAdmin(req,c_admin_manage_article)) {
-        condat = [req.body.title,req.body.brief,req.body.content,req.body.aid];
-        constr = 'UPDATE `article` SET `title` = ? , `brief` = ? , `content` = ? ,`updatetime` = now() WHERE `id` = ?;';
+        condat = [req.body.atype,req.body.title,req.body.brief,req.body.content,req.body.aid];
+        constr = 'UPDATE `article` SET `type` = ? `title` = ? , `brief` = ? , `content` = ? ,`updatetime` = now() WHERE `id` = ?;';
     }else if(ope == 'TOP' && isAdmin(req,c_admin_manage_article)) {
         condat = [req.body.top,req.body.aid];
         constr = 'UPDATE `article` SET `top` = ? WHERE `id` = ?;';
@@ -268,29 +264,34 @@ app.post('/admin_article',function(req,res){
 //public
 app.get('/', function(req, res) {
     var con = getMysqlConnection();
-    var constr = "SELECT DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`brief`,`title`,`author`,`id` FROM `article` WHERE `TOP` = 1;";
+    var constr = "SELECT DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`type`,`brief`,`title`,`author`,`id` FROM `article` WHERE `TOP` = 1;";
     con.query(constr, function(err, rows, fields) {
-        res.render('index', { title: 'INDEX',data :JSON.stringify(rows)  });
+        res.render('index', { act:"home",title: 'INDEX',data :JSON.stringify(rows)  });
     });
 });
 app.get('/article',function(req,res) {
     var con = getMysqlConnection();
-    var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`brief`,`title`,`author`,`id` FROM `article` ;";
+    var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`type`,`brief`,`title`,`author`,`id` FROM `article` ;";
     con.query(constr, function(err, rows, fields) {
-        res.render('article', { title: 'ARTICLE',data :JSON.stringify(rows)  });
+        res.render('article', { act:"article",title: 'ARTICLE',data :JSON.stringify(rows)  });
     });
 });
 //public
 app.get('/article_view',function(req,res) {
     var con = getMysqlConnection();
     var condat = [req.query.aid];
-    var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`brief`,`content`,`title`,`author`,`id` FROM `article` WHERE `id` = ? ;";
+    var constr = "SELECT DATE_FORMAT(`updatetime`,'%Y-%m-%d %H:%i:%S') AS 'updatetime' ,DATE_FORMAT(`createtime`,'%Y-%m-%d %H:%i:%S') AS 'createtime' ,`type`,`brief`,`content`,`title`,`author`,`id` FROM `article` WHERE `id` = ? ;";
     con.query(constr, condat, function(err, rows, fields) {
-        res.render('article_view', { title: 'ARTICLEVIEW',data :JSON.stringify(rows)  });
+        res.render('article_view', {act:"article", title: 'ARTICLEVIEW',data :JSON.stringify(rows)  });
     });
 });
 //main
-
+app.get('/info', function(req, res) {
+    res.render('info', { act:"info",title: 'Test Website - Info Page' });
+});
+app.get('/center', function(req, res) {
+    res.render('center', { act:"info",title: 'Test Website - Personal Center' });
+});
 
 var server = app.listen(80, function () {
     var host = server.address().address;

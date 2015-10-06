@@ -16,13 +16,13 @@
                 <% _data = JSON.parse(data); %>
                 <% for( x in _data) { %>
                     <tr>
-                        <th><input name = 'id' value = '<%-_data[x].id %>' readonly ></th>
-                        <th><input name = 'username' value = '<%-_data[x].username %>' readonly ></th>
+                        <th><%-_data[x].id %></th>
+                        <th><%-_data[x].username %></th>
                         <th><input type = 'password' name = 'password'  value = '<%-_data[x].password %>'></th>
                         <th><input name = 'lv' class="ipt-lv" value = '<%-_data[x].lv %>'></th>
                         <th class="ope">
-                            <button type="button" class="btn btn-primary" onclick = 'onUpdate_user(this);'>Update</button>
-                            <button type="button" class="btn btn-danger" onclick = 'onDelete_user(this);'>Delete</button>
+                            <button type="button" class="btn btn-primary" uid='<%-_data[x].id %>' onclick = 'onUpdate_user(this);'>Update</button>
+                            <button type="button" class="btn btn-danger" uid='<%-_data[x].id %>' onclick = 'onDelete_user(this);'>Delete</button>
                         </th>
                     </tr>
                 <% } %>
@@ -32,7 +32,7 @@
                         <th><input type = 'password' name = 'password'></th>
                         <th><input name = 'lv' class="ipt-lv"></th>
                         <th class="ope">
-                            <button type="button" class="btn btn-info" onclick = 'onInsert_user();'>Insert</button>
+                            <button type="button" class="btn btn-info" onclick = 'onInsert_user(this);'>Insert</button>
                         </th>
                     </tr>
             </tbody>

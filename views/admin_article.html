@@ -13,6 +13,7 @@
                 <th>Operation</th>
             </tr>
             </thead>
+
             <tbody>
             <% _data = JSON.parse(data); %>
             <% for( x in _data) { %>
@@ -21,7 +22,7 @@
                 <th><button type="button" class="btn btn-link" aid = '<%-_data[x].id%>' onclick = 'onView_article(this);'><%-_data[x].title%></button></th>
                 <th><%-_data[x].author%></th>
                 <th><%-_data[x].createtime%></th>
-                <th><%-_data[x].updatetime%></th>sz
+                <th><%-_data[x].updatetime%></th>
                 <th>
 
                     <% if(_data[x].top == 0){ %>

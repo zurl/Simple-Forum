@@ -1,4 +1,12 @@
 <% include header-public.html %>
+<div class="col-sm-3 col-md-2 sidebar">
+    <ul class="nav nav-sidebar">
+        <li><a href="/admin">Home</a></li>
+        <li><a href="/admin_article_insert">ArticleInsert</a></li>
+        <li><a href="/admin_article?page=1">ArticleView</a></li>
+        <li><a href="/admin_user?page=1">UserControl</a></li>
+    </ul>
+</div>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
     <div class="table-responsive">
         <table class="table table-striped">
@@ -16,7 +24,7 @@
             <% for( x in _data) { %>
             <tr>
                 <th><%-_data[x].id%></th>
-                <th><%-_data[x].title%></th>
+                <th><a href = '\article_view?aid=<%-_data[x].id%>'><%-_data[x].title%></a></th>
                 <th><%-_data[x].author%></th>
                 <th><%-_data[x].createtime%></th>
                 <th><%-_data[x].updatetime%></th>

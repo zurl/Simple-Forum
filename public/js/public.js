@@ -2,10 +2,15 @@
  * Created by furry on 9/28/2015.
  */
 //Using in Website
-function onAlert(type,msg){
+function onAlert(type,msg,up){
+    if(arguments.length==3) {
+        $("#alertdivup").html('<div class="alert alert-'+type+'" role="alert">'+msg+'</div>');
+    }else{
+        $("#alertdiv").html('<div class="alert alert-'+type+'" role="alert">'+msg+'</div>');
+    }
     //type
     //success danger warning danger
-    $("#alertdiv").html('<div class="alert alert-'+type+'" role="alert">'+msg+'</div>');
+
 }
 function checkInput(str,_reg,_str){
     if(arguments.length==1) {
@@ -32,7 +37,7 @@ function onLogin(){
     var password =  $("input[name='password']").val();
     if(checkInput(name) && checkInput(password)) {
         $.post("/login", {username: name, password: password}, function (res) {
-            onAlert(res.rtype, res.rdata);
+            onAlert(res.rtype, res.rdata,"up");
             window.setTimeout("window.location='/'",800);
         });
     }
@@ -43,6 +48,6 @@ function onRegister(s){
     });
 }
 //Using in Article
-function onView_article(){
-
+function onView_article(_this){
+    res.redirect("/article_view?aid=" + $(_this).attr("aid"));
 }

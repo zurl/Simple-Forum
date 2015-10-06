@@ -1,0 +1,44 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">TestWeb</a>
+        </div>
+
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li <% if (act =="home"){ %> class="active" <%}%> ><a href="/">Home</a></li>
+                <li <% if (act =="article"){ %> class="active"<%}%>><a href="/article">Article</a></li>
+                <li <% if (act =="info"){ %> class="active"<%}%>><a href="/info">Info</a></li>
+                <% if (a == 1){ %>
+                    <li <% if (act =="admin"){ %> class="active"<%}%>><a href="/admin">Admin</a></li>
+                <%}%>
+                <!-- <li><a href="#contact">Contact</a></li>-->
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <% if(l == 0) { %>
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input name = "username" type="text" placeholder="username" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input name = "password" type="password" placeholder="Password" class="form-control">
+                    </div>
+                    <button type="button" class="btn btn-success" onclick = "onLogin()">Sign in</button>
+                </form>
+
+                <% }else{ %>
+                <li ><a href="/logout"><%-username%></a></li>
+                <li ><a href="/logout">Logout</a></li>
+                <% } %>
+                <div id = "alertdivup"></div>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
