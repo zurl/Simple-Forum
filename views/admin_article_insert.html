@@ -1,6 +1,6 @@
 <% include header-admin.html %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">test website article manager view</h1>
+            <h1 class="page-header">test website article manager insert</h1>
             <div id = "alertdiv"></div>
             <div class = "container-fluid table-stripe">
                 <table class = "table table-striped">
@@ -20,14 +20,11 @@
                         <tr>
                             <th>Class : </th>
                             <th>
-                                <select>
-                                    <%-data%>
-                                    <% _data = JSON.parse(data)[0].value.split(); %>
-                                    <%-_data%>
-                                    <option value="volvo">Volvo</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="opel">Opel</option>
-                                    <option value="audi">Audi</option>
+                                <select id = "atypeselect">
+                                    <% _data = JSON.parse(tydata).typedata.split(','); %>
+                                    <%for(  x in _data){%>
+                                    <option value="<%-_data[x]%>"><%-_data[x]%></option>
+                                    <%}%>
                                 </select>
                             </th>
                         </tr>

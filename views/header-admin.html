@@ -18,10 +18,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li><a href="/admin">Home</a></li>
-                <li><a href="/admin_article_insert">ArticleInsert</a></li>
-                <li><a href="/admin_article?page=1">ArticleView</a></li>
-                <li><a href="/admin_user?page=1">UserControl</a></li>
+                <ul class="nav nav-sidebar">
+                <li <% if(act2 == "a"){ %>  class = "active"  <%}%> ><a href="/admin">Home</a></li>
+                <li <% if(act2 == "aai"){ %> class = "active" <%}%> ><a href="/admin_article_insert">ArticleInsert</a></li>
+                <li <% if(act2 == "aa" || act2 == "aav"){%> class = "active" <%}%> ><a href="/admin_article?page=1">ArticleView</a></li>
+                <li <% if(act2 == "au"){%> class = "active" <%}%> ><a href="/admin_user?page=1">UserControl</a></li>
             </ul>
         </div>

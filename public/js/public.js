@@ -4,9 +4,9 @@
 //Using in Website
 function onAlert(type,msg,up){
     if(arguments.length==3) {
-        $("#alertdivup").html('<div class="alert alert-'+type+'" role="alert">'+msg+'</div>');
+        $('#alertdivup').html('<div class=\'alert alert-'+type+'\' role=\'alert\'>'+msg+'</div>');
     }else{
-        $("#alertdiv").html('<div class="alert alert-'+type+'" role="alert">'+msg+'</div>');
+        $('#alertdiv').html('<div class=\'alert alert-'+type+'\' role=\'alert\'>'+msg+'</div>');
     }
     //type
     //success danger warning danger
@@ -15,7 +15,7 @@ function onAlert(type,msg,up){
 function checkInput(str,_reg,_str){
     if(arguments.length==1) {
         var reg=/[^a-zA-Z0-9_]+/;
-        var rstr = "ERROR : You only can input 0-9,a-z,A-Z and _ in blanks.";
+        var rstr = 'ERROR : You only can input 0-9,a-z,A-Z and _ in blanks.';
     }else if(arguments.length==3) {
         var reg=_reg;
         var rstr = _str;
@@ -33,21 +33,18 @@ function checkInput(str,_reg,_str){
 }
 //Using in login.html
 function onLogin(){
-    var name = $('input[name="username"]').val();
-    var password =  $('input[name="password"]').val();
+    var name = $('input[name=\'username\']').val();
+    var password =  $('input[name=\'password\']').val();
     if(checkInput(name) && checkInput(password)) {
-        $.post("/login", {username: name, password: password}, function (res) {
-            onAlert(res.rtype, res.rdata,"up");
-            window.setTimeout('window.location="/"',800);
+        $.post('/login', {username: name, password: password}, function (res) {
+            onAlert(res.rtype, res.rdata,'up');
+            window.setTimeout('window.location=\'/\'',800);
         });
     }
 }
 function onRegister(s){
-    $.post("/register",{username : $('input[name="username"]').val(),password : $('input[name="password"]').val()},function(res){
+    $.post('/register',{username : $('input[name=\'username\']').val(),password : $('input[name=\'password\']').val()},function(res){
         onAlert(res.rtype,res.rdata);
     });
 }
 //Using in Article
-function onView_article(_this){
-    res.redirect("/article_view?aid=" + $(_this).attr("aid"));
-}

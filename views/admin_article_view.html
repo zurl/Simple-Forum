@@ -1,28 +1,63 @@
 <% include header-admin.html %>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <h1 class="page-header">test website article manager view</h1>
-            <%var __data = JSON.parse(data);%>
-            <div id = "alertdiv"></div>
-            <div class = "container-fluid">
-                # : <span name="id" aid="<%-__data[0].id%>"><%-__data[0].id%></span>
-                <br />
-                Author : <%-__data[0].author%>
-                <br />
-                Createtime : <%-__data[0].createtime%>
-            </div>
-            <div class = "container-fluid">
-                Title : <input name = 'title' value = '<%-__data[0].title %>' >
-                <br />
-                Brief introduction : <textarea name = 'brief' ><%-__data[0].brief %></textarea>
-                <br />
-                Content : <textarea name = 'content' ><%-__data[0].content %></textarea>
-                <br />
-            </div>
-            <th>
-                <button type="button" class="btn btn-info" onclick = 'onUpdate_article();'>Update</button>
-            </th>
-        </div>
+<%var __data = JSON.parse(data);%>
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+    <h1 class="page-header">test website article manager view</h1>
+    <div id = "alertdiv"></div>
+    <div class = "container-fluid table-stripe">
+        <table class = "table table-striped">
+            <tbody >
+            <tr>
+                <th>#</th>
+                <th ><%-__data[0].id %></th>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <th><%-__data[0].author %></th>
+            </tr>
+            <tr>
+                <th>Create time</th>
+                <th><%-__data[0].createtime %></th>
+            </tr>
+            <tr>
+                <th>Update time</th>
+                <th><%-__data[0].updatetime %></th>
+            </tr>
+            <tr>
+                <th >Title</th>
+                <th><input name = 'title' value = '<%-__data[0].title %>' ></th>
+            </tr>
+            <tr>
+                <th>Brief introduction : </th>
+                <th><textarea name = 'brief' class = 'textarea-full' ><%-__data[0].brief %></textarea></th>
+            </tr>
+            <tr>
+                <th>Content : </th>
+                <th><textarea name = 'content' class = 'textarea-full' ><%-__data[0].content %></textarea></th>
+            </tr>
+            <tr>
+                <th>Class : </th>
+                <th>
+                    <select id = "atypeselect">
+                        <% _data = JSON.parse(tydata).typedata.split(','); %>
+                        <%for(  x in _data){%>
+                        <option <% if( _data[x] == __data[0].atype){%>  selected='selected'    <%}%> value="<%-_data[x]%>" > <%-_data[x]%> </option>
+                        <%}%>
+                    </select>
+                </th>
+            </tr>
+            <tr>
+                <th></th>
+                <th>
+                    <button type="button" name="aid" aid="<%-__data[0].id %>" class="btn btn-info" onclick = 'onUpdate_article();'>Update</button>
+                </th>
+            </tr>
+            </tbody>
+
+        </table>
+
     </div>
+</div>
+</div>
 </body>
 
 </html>
