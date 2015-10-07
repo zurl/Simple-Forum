@@ -1,0 +1,26 @@
+db defination
+
+CREATE DATABASE webtest;
+
+CREATE TABLE user
+(
+id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+username varchar(50) NOT NULL UNIQUE ,
+password varchar(50) NOT NULL,
+lv int NOT NULL
+);
+
+CREATE TABLE article
+(
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+author varchar(50) NOT NULL,
+title text NOT NULL,
+brief text ,
+onindex tinyint NOT NULL,
+createtime DATETIME NOT NULL,
+updatetime DATETIME NOT NULL,
+content text,
+atype text
+);
+
+INSERT INTO user (`username`,`password`,`lv`)VALUES('furry','furry',15);

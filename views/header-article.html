@@ -2,7 +2,7 @@
     <ul class="nav nav-sidebar">
         <% ___data = JSON.parse(tydata).typedata.split(','); %>
         <%for(  x in ___data){%>
-        <li><a href="/article?atype=<%-___data[x]%>"><%-___data[x]%></a></li>
+        <li <%if(___data[x] == atype){%> class="active" <%}%> ><a href="/article?atype=<%-___data[x]%>"><%-___data[x]%></a></li>
         <%}%>
     </ul>
 </div>

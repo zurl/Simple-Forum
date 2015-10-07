@@ -1,21 +1,48 @@
 <% include header-public.html %>
+<% include header-article.html %>
+<%var __data = JSON.parse(data);%>
 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-    <h1 class="page-header">test website article manager view</h1>
-    <%var __data = JSON.parse(data);%>
+    <h1 class="page-header">Test website - View article</h1>
     <div id = "alertdiv"></div>
-    <div class = "container-fluid">
-        # : <span name="id" aid="<%-__data[0].id%>"><%-__data[0].id%></span>
-        <br />
-        Author : <%-__data[0].author%>
-        <br />
-        Createtime : <%-__data[0].createtime%>
-        <br />
-        Title : <%-__data[0].title %>
-        <br />
-        Brief introduction :<%-__data[0].brief %>
-        <br />
-        Content : <%-__data[0].content %>
-        <br />
+    <div class = "container-fluid table-stripe">
+        <table class = "table table-striped">
+            <tbody >
+            <tr>
+                <th>#</th>
+                <th ><%-__data[0].id %></th>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <th><%-__data[0].author %></th>
+            </tr>
+            <tr>
+                <th>Create time</th>
+                <th><%-__data[0].createtime %></th>
+            </tr>
+            <tr>
+                <th>Update time</th>
+                <th><%-__data[0].updatetime %></th>
+            </tr>
+            <tr>
+                <th >Title</th>
+                <th><%-__data[0].title %></th>
+            </tr>
+            <tr>
+                <th>Brief introduction : </th>
+                <th><%-__data[0].brief %></th>
+            </tr>
+            <tr>
+                <th>Content : </th>
+                <th><%-__data[0].content %></th>
+            </tr>
+            <tr>
+                <th>Type : </th>
+                <th><%-__data[0].atype%></th>
+            </tr>
+            </tbody>
+
+        </table>
+
     </div>
 </div>
 </body>
