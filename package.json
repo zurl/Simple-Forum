@@ -1,5 +1,5 @@
 {
-  "name": "test",
+  "name": "webtest",
   "version": "1.0.0",
   "description": "test website",
   "main": "server.js",
@@ -7,10 +7,23 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "",
+  "author": "furry",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
+    "ejs": "^2.3.4",
     "express": "^4.13.3",
+    "express-session": "^1.11.3",
+    "fs": "0.0.2",
+    "multer": "^1.0.6",
+    "mysql": "^2.9.0",
+    "path": "^0.12.7",
     "sequelize": "^3.11.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git@git.zjuqsc.com:newbie/furry_homework.git"
   }
 }
