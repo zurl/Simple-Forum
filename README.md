@@ -10,31 +10,34 @@ About deployment
 #Mysql command
 
 #This table is used to store user information.
-CREATE TABLE user
+
+CREATE TABLE user<br /\> 
 (
-id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-username varchar(50) NOT NULL UNIQUE ,
-password varchar(50) NOT NULL,
-lv int NOT NULL
+id int NOT NULL PRIMARY KEY AUTO_INCREMENT,<br /\> 
+username varchar(50) NOT NULL UNIQUE ,<br /\> 
+password varchar(50) NOT NULL,<br /\> 
+lv int NOT NULL<br /\> 
 );
 
 #This table is used to store article information.
-CREATE TABLE article
-(
-id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-author varchar(50) NOT NULL,
-title text NOT NULL,
-brief text ,
-onindex tinyint NOT NULL,
-createtime DATETIME NOT NULL,
-updatetime DATETIME NOT NULL,
-content text,
-type text
-);
+
+CREATE TABLE article<br /\> 
+(<br /\> 
+id int PRIMARY KEY NOT NULL AUTO_INCREMENT,<br /\> 
+author varchar(50) NOT NULL,<br /\> 
+title text NOT NULL,<br /\> 
+brief text ,<br /\> 
+onindex tinyint NOT NULL,<br /\> 
+createtime DATETIME NOT NULL,<br /\> 
+updatetime DATETIME NOT NULL,<br /\> 
+content text,<br /\> 
+type text<br /\> 
+);<br /\> 
 
 3.Create an user as administrator for you to login the background,set `lv` = 15 to guarantee to get all the authorization.
 
 #Mysql command
+
 INSERT INTO user (`username`,`password`,`lv`)VALUES('test','test','15');
 
 4.In this project, the authorization management is arranged as following.Once you want to get authorization more than one , you just need to add them up.
@@ -58,6 +61,3 @@ we also provide the config.json.default as template , you can refer to it.
 (If you can't automatically install all the dependencies , you can find the name of them in "server.js" and install them manually.)
 
 7.render "node server.js".
-
-
-
