@@ -3,14 +3,11 @@ About project
 
 This is a test website, which is created for the National Day holiday homework of furry.<br /\> 
 
-I has used the `node` + `express` + `ejs` + `mysql` for back end, and `bootstrap` for front end.<br /\> 
+I have used the `node` + `express` + `ejs` + `mysql` for back end, and `bootstrap` for front end.<br /\> 
 (I have plan to learn ORM and Angular in the future.)<br /\> 
 
 Limited by furry's low web developing skills, this website is so simple and full of mistakes.<br /\> 
 Welcome everyone to write issue about it on gitlib.<br /\> 
-
-furry 2015.10.7<br /\> 
-in blueland<br /\> 
 
 About deployment
 =============================
