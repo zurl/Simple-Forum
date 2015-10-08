@@ -1,0 +1,7 @@
+{
+  "db_host" : "test"
+  "db_user" : "test",
+  "db_password" : "test",
+  "listen_port" : "80",
+  "article_type" : "新闻,咨询,通知"
+}

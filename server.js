@@ -10,17 +10,18 @@ var express = require('express');
 var app = express();
 var mysql  = require('mysql');
 var bodyParser = require('body-parser');
-var multer = require('multer');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var path = require('path');
-
+var address = require('address');
 var ejs = require('ejs');
+
 var c_user = 0;
 var c_admin_base = 1;
 var c_admin_insert_article = 2;
 var c_admin_manage_article = 4;
 var c_admin_super = 8;
+var listen_port = 80;
 var dbjson = {};
 var typejson = {};
 
@@ -31,7 +32,6 @@ app.set('view engine', 'html');
 app.set('trust proxy', 1);
 
 app.use(cookieParser());
-app.use(multer()); // for parsing multipart/form-data
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
@@ -270,21 +270,21 @@ app.get('/center', function(req, res) {
     res.render('center', { act:'info',title: 'Test Website - Personal Center' });
 });
 
-var server = app.listen(80, function () {
-    fs.readFile('config.json',function(err,data) {
-        var _json = JSON.parse(data);
-        dbjson = {
-            host : _json.db_host,
-            user : _json.db_user,
-            password : _json.db_password
-        };
-        typejson = {
-           typedata :  _json.article_type
-        };
-    });
-    var host = server.address().address;
-    var port = server.address().port;
-    console.log('Example app listening at http://%s:%s', host, port);
+fs.readFile('config.json',function(err,data) {
+    var _json = JSON.parse(data);
+    dbjson = {
+        host : _json.db_host,
+        user : _json.db_user,
+        password : _json.db_password
+    };
+    typejson = {
+        typedata :  _json.article_type
+    };
+    listen_port = _json.listen_port;
+});
+
+var server = app.listen(listen_port, function () {
+    console.log('TestWebsite server listening on port '+ listen_port);
 });
 
 

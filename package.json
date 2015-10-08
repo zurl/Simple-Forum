@@ -16,7 +16,6 @@
     "express": "^4.13.3",
     "express-session": "^1.11.3",
     "fs": "0.0.2",
-    "multer": "^1.0.6",
     "mysql": "^2.9.0",
     "path": "^0.12.7",
     "sequelize": "^3.11.0"
