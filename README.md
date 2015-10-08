@@ -42,22 +42,22 @@ INSERT INTO user (`username`,`password`,`lv`)VALUES('test','test','15');
 
 4.In this project, the authorization management is arranged as following.Once you want to get authorization more than one , you just need to add them up.
 
-var c_user = 0; //normal user
-var c_admin_base = 1; // access to background
-var c_admin_insert_article = 2;  // insert article
-var c_admin_manage_article = 4;  // delete , change , top article (NOT INCLUDE insert)
-var c_admin_super = 8;  // user management
+var c_user = 0; //normal user<br /\> 
+var c_admin_base = 1; // access to background<br /\> 
+var c_admin_insert_article = 2;  // insert article<br /\> 
+var c_admin_manage_article = 4;  // delete , change , top article (NOT INCLUDE insert)<br /\> 
+var c_admin_super = 8;  // user management<br /\> 
 
-5.You also should to write config.json , which is settings file for the website. we need FIVE attributes.
-"db_host" //the address of mysql server
-"db_user" : //the username of mysql
-"db_password" : //the password of mysql
-"listen_port" : //the port of http listen , the default value is 80
-"article_type" : //the types of article , which should be split by ','
+5.You also should to write config.json , which is settings file for the website. we need FIVE attributes.<br /\> 
+"db_host" //the address of mysql server<br /\> 
+"db_user" : //the username of mysql<br /\> 
+"db_password" : //the password of mysql<br /\> 
+"listen_port" : //the port of http listen , the default value is 80<br /\> 
+"article_type" : //the types of article , which should be split by ','<br /\> 
 
-we also provide the config.json.default as template , you can refer to it.
+we also provide the config.json.default as template , you can refer to it.<br /\> 
 
-6.The project need some Node.js dependencies , use "npm install" command to install them.
-(If you can't automatically install all the dependencies , you can find the name of them in "server.js" and install them manually.)
+6.The project need some Node.js dependencies , use "npm install" command to install them.<br /\> 
+(If you can't automatically install all the dependencies , you can find the name of them in "server.js" and install them manually.)<br /\> 
 
-7.render "node server.js".
+7.render "node server.js".<br /\> 
